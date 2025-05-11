@@ -1,0 +1,135 @@
+{
+	"info": {
+		"_postman_id": "767115a0-024f-4b84-ad57-e954309cb345",
+		"name": "go-animal-api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23289739"
+	},
+	"item": [
+		{
+			"name": "get all animal",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/v1/animal",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"animal"
+					]
+				},
+				"description": "### Get Animal Details\n\nThis endpoint makes an HTTP GET request to retrieve details of animals.\n\n#### Request Body\n\nThis request does not require a request body.\n\n#### Response Body\n\n``` json\n{\n    \"status\": 200,\n    \"message\": \"Animals retrieved successfully\",\n    \"data\": [\n        {\n            \"id\": 1,\n            \"name\": \"Lion\",\n            \"class\": \"Mammal\",\n            \"legs\": 4,\n            \"created_at\": \"2025-05-11T14:30:32.199Z\",\n            \"updated_at\": \"2025-05-11T14:31:11.444Z\"\n        },\n        {\n            \"id\": 2,\n            \"name\": \"Elephant\",\n            \"class\": \"Mammal\",\n            \"legs\": 4,\n            \"created_at\": \"2025-05-11T14:32:19.028Z\",\n            \"updated_at\": \"2025-05-11T14:32:19.028Z\"\n        }\n    ]\n}\n\n ```"
+			},
+			"response": []
+		},
+		{
+			"name": "get animal",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/v1/animal/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"animal",
+						"1"
+					]
+				},
+				"description": "### Get Animal Details\n\nThis endpoint makes an HTTP GET request to retrieve details of a specific animal.\n\n#### Request\n\nThis request does not require a request body.\n\n#### Response\n\n``` json\n{\n    \"status\": 200,\n    \"message\": \"Animal retrieved successfully\",\n    \"data\": {\n        \"id\": 1,\n        \"name\": \"Lion\",\n        \"class\": \"Mammal\",\n        \"legs\": 4,\n        \"created_at\": \"2025-05-11T14:30:32.199Z\",\n        \"updated_at\": \"2025-05-11T14:31:11.444Z\"\n    }\n}\n\n ```"
+			},
+			"response": []
+		},
+		{
+			"name": "create animal",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": 2,\r\n    \"name\": \"Elephant\", \r\n    \"class\": \"Mammal\", \r\n    \"legs\": 4\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/v1/animal",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"animal"
+					]
+				},
+				"description": "### Post New Animal\n\nThis endpoint allow the client to create new animal.\n\n#### Request Body\n\n- `id` (number): The unique identifier of the animal.\n    \n- `name` (string): The name of the animal.\n    \n- `class` (string): The class to which the animal belongs.\n    \n- `legs` (number): The number of legs the animal has.\n    \n\n#### Response\n\nThe response will be in JSON format with the following schema:\n\n``` json\n{\n    \"status\": 201,\n    \"message\": \"Animal created successfully\",\n    \"data\": {\n        \"id\": 2,\n        \"name\": \"Elephant\",\n        \"class\": \"Mammal\",\n        \"legs\": 4,\n        \"created_at\": \"2025-05-11T14:32:19.028Z\",\n        \"updated_at\": \"2025-05-11T14:32:19.028Z\"\n    }\n}\n\n ```"
+			},
+			"response": []
+		},
+		{
+			"name": "update animal",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": 1,\r\n    \"name\": \"Lion\", \r\n    \"class\": \"Mammal\", \r\n    \"legs\": 4\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/v1/animal",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"animal"
+					]
+				},
+				"description": "### Update Animal Information\n\nThis endpoint allows the client to update information about an animal.\n\n#### Request Body\n\n- `id` (number): The unique identifier of the animal.\n    \n- `name` (string): The name of the animal.\n    \n- `class` (string): The class to which the animal belongs.\n    \n- `legs` (number): The number of legs the animal has.\n    \n\n#### Response\n\nThe response will be in JSON format with the following schema:\n\n``` json\n{\n    \"status\": 200,\n    \"message\": \"Animal upserted successfully\",\n    \"data\": {\n        \"id\": 1,\n        \"name\": \"Lion\",\n        \"class\": \"Mammal\",\n        \"legs\": 4,\n        \"created_at\": \"2025-05-11T14:30:32.199Z\",\n        \"updated_at\": \"2025-05-11T14:31:11.444Z\"\n    }\n}\n\n ```"
+			},
+			"response": []
+		},
+		{
+			"name": "delete animal",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/v1/animal/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"animal",
+						"2"
+					]
+				},
+				"description": "### Delete Animal\n\nThis endpoint is used to delete an animal with the specified ID.\n\n#### Request\n\nThis request does not require a request body.\n\n#### Response\n\nThe response is in JSON format and has the following schema:\n\n``` json\n{\n    \"status\": 200,\n    \"message\": \"Animal deleted successfully\"\n}\n\n ```"
+			},
+			"response": []
+		}
+	]
+}
