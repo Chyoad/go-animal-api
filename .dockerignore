@@ -1,0 +1,51 @@
+# Git files and directories
+.git
+.gitignore
+
+# Docker related files that should not be in the build context if not needed by build stage
+Dockerfile
+docker-compose.yml
+.dockerignore
+
+# Go modules cache - go mod download will be run inside Docker build
+# vendor/ # If using vendoring and don't want to copy
+# go.sum  # Optional, if always resolving from go.mod
+# go.mod  # Optional, if always resolving from go.mod (usually both are copied)
+
+# Local environment files
+.env
+*.env
+.env.*
+!.env.example
+
+# IDE-specific files and folders
+.idea/
+.vscode/
+*.iml
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Compiled binary from local builds (Docker build will compile its own)
+animal-api # or your local binary name
+*.exe
+*.out
+
+# Test files (optional, usually safe to include but can be excluded if image size is critical)
+# *_test.go
+
+# Build artifacts from local builds
+build/
+dist/
+
+# Log files from local runs
+*.log
+logs/
+
+# Temporary files
+tmp/
+temp/
+
+# README and other documentation (optional, depending if needed in image)
+README.md

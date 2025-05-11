@@ -1,0 +1,60 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: animal_api_app
+    ports:
+      - "${APP_PORT_HOST:-8080}:${APP_PORT_CONTAINER:-8080}"
+    environment:
+      GIN_MODE: ${GIN_MODE_APP:-release} # Default ke 'release' untuk Docker
+      APP_PORT: ${APP_PORT_CONTAINER:-8080} # Port di dalam container
+
+      # DB_DSN: "user:password@tcp(mysql_db:3306)/animal_db?charset=utf8mb4&parseTime=True&loc=Local"
+
+      DB_HOST: mysql_db # Nama service database di bawah.
+      DB_PORT: 3306 # Port MySQL di dalam jaringan Docker (bukan port yang di-expose ke host)
+      DB_USER: ${MYSQL_USER_APP:-user}
+      DB_PASSWORD: ${MYSQL_PASSWORD_APP:-password}
+      DB_NAME: ${MYSQL_DATABASE_APP:-animal_db}
+      DB_SCHEMA: "charset=utf8mb4&parseTime=True&loc=Local"
+    depends_on:
+      mysql_db:
+        condition: service_healthy
+    networks:
+      - animal_network
+    restart: unless-stopped
+    env_file:
+      - ./.env # File .env
+
+  mysql_db:
+    image: mysql:8.0
+    container_name: animal_mysql_db_container
+    ports:
+      # Map port MySQL di container ke port di host
+      - "${MYSQL_HOST_PORT:-3307}:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-rootpassword}
+      MYSQL_DATABASE: ${MYSQL_DATABASE_APP:-animal_db} # Sama dengan DB_NAME
+      MYSQL_USER: ${MYSQL_USER_APP:-user}              # Sama dengan DB_USER
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD_APP:-password}  # Sama dengan DB_PASSWORD
+    volumes:
+      - mysql_data_volume:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "${MYSQL_USER_APP:-user}", "--password=${MYSQL_PASSWORD_APP:-password}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    networks:
+      - animal_network
+    restart: unless-stopped
+
+volumes:
+  mysql_data_volume:
+
+networks:
+  animal_network:
+    driver: bridge
